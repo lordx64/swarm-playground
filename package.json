@@ -1,0 +1,10 @@
+{
+  "name": "swarm-playground",
+  "version": "0.1.0",
+  "description": "A tiny text-utility library used as a sandbox for p2p-swarm agents to work on.",
+  "type": "module",
+  "license": "MIT",
+  "exports": "./src/index.js",
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test test/" }
+}
