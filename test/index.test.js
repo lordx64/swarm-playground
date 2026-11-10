@@ -91,7 +91,8 @@ test('the entry point exports the whole public API', async () => {
   const api = await import('../src/index.js')
   assert.deepEqual(Object.keys(api).sort(), [
     'camelCase', 'countOccurrences', 'dedent', 'escapeHtml', 'formatDuration', 'fromRoman', 'initials',
-    'kebabCase', 'ordinal', 'padCenter', 'pascalCase', 'slugify', 'snakeCase', 'template', 'titleCase',
+    'kebabCase', 'levenshtein', 'maskEmail', 'maskMiddle', 'ordinal', 'padCenter', 'pascalCase',
+    'reverseChars', 'reverseWords', 'similarity', 'slugify', 'snakeCase', 'template', 'titleCase',
     'toRoman', 'truncate', 'unescapeHtml', 'wordCount', 'wrap'
   ])
 })

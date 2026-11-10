@@ -4,7 +4,7 @@ A tiny, dependency-free text-utility library for JavaScript.
 
 ## About
 
-textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals and simple templating. It exists as a sandbox for [p2p-swarm](https://github.com/lordx64/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
+textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals, simple templating, reversing, masking and string similarity. It exists as a sandbox for [p2p-swarm](https://github.com/lordx64/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
 
 ## Install and usage
 
@@ -31,9 +31,12 @@ import {
   formatDuration,
   escapeHtml, unescapeHtml,
   initials,
+  maskEmail, maskMiddle,
   ordinal,
   padCenter,
+  reverseWords, reverseChars,
   toRoman, fromRoman,
+  levenshtein, similarity,
   template,
   wrap, truncate, dedent
 } from './src/index.js'
@@ -147,6 +150,25 @@ initials('Ada Lovelace')             // → 'AL'
 initials('Grace Brewster Hopper', 3) // → 'GBH'
 ```
 
+### Mask
+
+#### `maskEmail(email)`
+
+Masks the local part of an email address, keeping its first character and the whole domain. Input without a usable `@` is returned unchanged.
+
+```js
+maskEmail('ada@example.com') // → 'a**@example.com'
+```
+
+#### `maskMiddle(text, visible = 2, char = '*')`
+
+Replaces the middle of `text` with `char`, keeping `visible` characters at each end. Text too short to have a middle is masked entirely.
+
+```js
+maskMiddle('1234567890')         // → '12******90'
+maskMiddle('1234567890', 1, '#') // → '1########0'
+```
+
 ### Ordinal
 
 #### `ordinal(n)`
@@ -168,6 +190,25 @@ padCenter('hi', 6)      // → '  hi  '
 padCenter('hi', 7, '*') // → '**hi***'
 ```
 
+### Reverse
+
+#### `reverseWords(text)`
+
+Reverses the order of the whitespace-separated words, joining them with single spaces.
+
+```js
+reverseWords('hello big world') // → 'world big hello'
+```
+
+#### `reverseChars(text)`
+
+Reverses the characters of the text, keeping surrogate pairs such as emoji intact.
+
+```js
+reverseChars('abc')  // → 'cba'
+reverseChars('a😀b') // → 'b😀a'
+```
+
 ### Roman
 
 #### `toRoman(n)`
@@ -184,6 +225,25 @@ Parses a Roman numeral back into a number.
 
 ```js
 fromRoman('XIV') // → 14
+```
+
+### Similarity
+
+#### `levenshtein(a, b)`
+
+The edit distance between two strings: the fewest single-character insertions, deletions and substitutions that turn `a` into `b`.
+
+```js
+levenshtein('kitten', 'sitting') // → 3
+```
+
+#### `similarity(a, b)`
+
+How alike two strings are, from `0` to `1` (`1 - levenshtein(a, b) / length of the longer string`). Two empty strings score `1`.
+
+```js
+similarity('abcd', 'abce') // → 0.75
+similarity('abc', 'xyz')   // → 0
 ```
 
 ### Template
@@ -225,7 +285,7 @@ dedent('\n    a\n      b\n') // → 'a\n  b'
 
 ## Project layout
 
-- `src/` holds one module per topic (`case.js`, `count.js`, `duration.js`, `escape.js`, `initials.js`, `ordinal.js`, `pad.js`, `roman.js`, `template.js`, `wrap.js`); `src/index.js` re-exports the public API.
+- `src/` holds one module per topic (`case.js`, `count.js`, `duration.js`, `escape.js`, `initials.js`, `mask.js`, `ordinal.js`, `pad.js`, `reverse.js`, `roman.js`, `similarity.js`, `template.js`, `wrap.js`); `src/index.js` re-exports the public API.
 - `test/` mirrors `src/` with one `*.test.js` file per module.
 
 ## Testing
