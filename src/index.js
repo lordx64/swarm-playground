@@ -77,3 +77,14 @@ export function dedent (text) {
   return lines.map(line => (line.trim() ? line.slice(indent) : '')).join('\n')
 }
 
+// The rest of the public API lives in one module per topic.
+export * from './case.js'
+export * from './count.js'
+export * from './duration.js'
+export * from './escape.js'
+export * from './initials.js'
+export * from './ordinal.js'
+export * from './pad.js'
+export * from './roman.js'
+export * from './template.js'
+export * from './wrap.js'

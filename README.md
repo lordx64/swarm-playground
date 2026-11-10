@@ -114,7 +114,8 @@ wordCount('one two three') // → 3
 Formats a number of milliseconds as a human-readable duration.
 
 ```js
-formatDuration(90000) // a human-readable string for 90 seconds
+formatDuration(90000)   // → '1m 30s'
+formatDuration(3723000) // → '1h 2m 3s'
 ```
 
 ### Escape
@@ -142,7 +143,8 @@ unescapeHtml('&lt;b&gt;') // → '<b>'
 Extracts initials from a name, at most `max` of them.
 
 ```js
-initials('Ada Lovelace') // the initials of the name, at most 2 by default
+initials('Ada Lovelace')             // → 'AL'
+initials('Grace Brewster Hopper', 3) // → 'GBH'
 ```
 
 ### Ordinal
@@ -162,7 +164,8 @@ ordinal(3) // → '3rd'
 Pads a string on both sides with `fill` so it is centered in `width` characters.
 
 ```js
-padCenter('hi', 6) // 'hi' centered in a 6-character string
+padCenter('hi', 6)      // → '  hi  '
+padCenter('hi', 7, '*') // → '**hi***'
 ```
 
 ### Roman
@@ -187,10 +190,11 @@ fromRoman('XIV') // → 14
 
 #### `template(text, values)`
 
-Simple placeholder interpolation: fills the placeholders in `text` with the matching entries of `values`.
+Simple placeholder interpolation: replaces each `{{name}}` in `text` with the matching entry of `values`. Placeholders with no matching entry are left as they are.
 
 ```js
-template(text, { name: 'Ada' }) // fills the placeholders in text with the matching values
+template('Hello, {{name}}!', { name: 'Ada' }) // → 'Hello, Ada!'
+template('{{a}} and {{b}}', { a: 'x' })       // → 'x and {{b}}'
 ```
 
 ### Wrap
@@ -200,7 +204,7 @@ template(text, { name: 'Ada' }) // fills the placeholders in text with the match
 Wraps text so lines fit within the given column width.
 
 ```js
-wrap('a long piece of text', 10) // the text wrapped to lines of at most 10 columns
+wrap('a long piece of text', 10) // → 'a long\npiece of\ntext'
 ```
 
 #### `truncate(text, max, ellipsis = '…')`
