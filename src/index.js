@@ -78,6 +78,8 @@ export function dedent (text) {
 }
 
 // The rest of the public API lives in one module per topic.
+export * from './acronym.js'
+export * from './bytes.js'
 export * from './case.js'
 export * from './count.js'
 export * from './duration.js'
@@ -86,6 +88,7 @@ export * from './initials.js'
 export * from './mask.js'
 export * from './ordinal.js'
 export * from './pad.js'
+export * from './plural.js'
 export * from './reverse.js'
 export * from './roman.js'
 export * from './similarity.js'

@@ -4,7 +4,7 @@ A tiny, dependency-free text-utility library for JavaScript.
 
 ## About
 
-textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals, simple templating, reversing, masking and string similarity. It exists as a sandbox for [p2p-swarm](https://github.com/lordx64/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
+textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals, simple templating, reversing, masking, string similarity, pluralization, byte sizes and acronyms. It exists as a sandbox for [p2p-swarm](https://github.com/lordx64/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
 
 ## Install and usage
 
@@ -26,6 +26,8 @@ camelCase('hello world')   // → 'helloWorld'
 
 ```js
 import {
+  acronym,
+  formatBytes,
   camelCase, snakeCase, kebabCase, pascalCase, titleCase, slugify,
   countOccurrences, wordCount,
   formatDuration,
@@ -34,12 +36,34 @@ import {
   maskEmail, maskMiddle,
   ordinal,
   padCenter,
+  pluralize,
   reverseWords, reverseChars,
   toRoman, fromRoman,
   levenshtein, similarity,
   template,
   wrap, truncate, dedent
 } from './src/index.js'
+```
+
+### Acronym
+
+#### `acronym(text)`
+
+Builds an uppercase acronym from the first letter of each word. Words are split on whitespace and hyphens.
+
+```js
+acronym('portable network graphics') // → 'PNG'
+```
+
+### Bytes
+
+#### `formatBytes(n)`
+
+Formats a byte count with 1024-based units (`B`, `KB`, `MB`, `GB`) and at most one decimal; whole numbers have no `.0`. Throws a `RangeError` for negative numbers.
+
+```js
+formatBytes(1536) // → '1.5 KB'
+formatBytes(1024) // → '1 KB'
 ```
 
 ### Case
@@ -190,6 +214,19 @@ padCenter('hi', 6)      // → '  hi  '
 padCenter('hi', 7, '*') // → '**hi***'
 ```
 
+### Plural
+
+#### `pluralize(word, count)`
+
+Pluralizes a regular English noun unless `count` is exactly `1`. Handles `-es` endings and consonant + `y` → `-ies`; irregular nouns are not handled.
+
+```js
+pluralize('cat', 2)  // → 'cats'
+pluralize('box', 2)  // → 'boxes'
+pluralize('city', 3) // → 'cities'
+pluralize('cat', 1)  // → 'cat'
+```
+
 ### Reverse
 
 #### `reverseWords(text)`
@@ -285,7 +322,7 @@ dedent('\n    a\n      b\n') // → 'a\n  b'
 
 ## Project layout
 
-- `src/` holds one module per topic (`case.js`, `count.js`, `duration.js`, `escape.js`, `initials.js`, `mask.js`, `ordinal.js`, `pad.js`, `reverse.js`, `roman.js`, `similarity.js`, `template.js`, `wrap.js`); `src/index.js` re-exports the public API.
+- `src/` holds one module per topic (`acronym.js`, `bytes.js`, `case.js`, `count.js`, `duration.js`, `escape.js`, `initials.js`, `mask.js`, `ordinal.js`, `pad.js`, `plural.js`, `reverse.js`, `roman.js`, `similarity.js`, `template.js`, `wrap.js`); `src/index.js` re-exports the public API.
 - `test/` mirrors `src/` with one `*.test.js` file per module.
 
 ## Testing

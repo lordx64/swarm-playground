@@ -90,9 +90,9 @@ test('dedent edge cases', () => {
 test('the entry point exports the whole public API', async () => {
   const api = await import('../src/index.js')
   assert.deepEqual(Object.keys(api).sort(), [
-    'camelCase', 'countOccurrences', 'dedent', 'escapeHtml', 'formatDuration', 'fromRoman', 'initials',
-    'kebabCase', 'levenshtein', 'maskEmail', 'maskMiddle', 'ordinal', 'padCenter', 'pascalCase',
-    'reverseChars', 'reverseWords', 'similarity', 'slugify', 'snakeCase', 'template', 'titleCase',
-    'toRoman', 'truncate', 'unescapeHtml', 'wordCount', 'wrap'
+    'acronym', 'camelCase', 'countOccurrences', 'dedent', 'escapeHtml', 'formatBytes', 'formatDuration',
+    'fromRoman', 'initials', 'kebabCase', 'levenshtein', 'maskEmail', 'maskMiddle', 'ordinal', 'padCenter',
+    'pascalCase', 'pluralize', 'reverseChars', 'reverseWords', 'similarity', 'slugify', 'snakeCase',
+    'template', 'titleCase', 'toRoman', 'truncate', 'unescapeHtml', 'wordCount', 'wrap'
   ])
 })
