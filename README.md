@@ -4,14 +4,14 @@ A tiny, dependency-free text-utility library for JavaScript.
 
 ## About
 
-textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals, simple templating, reversing, masking, string similarity, pluralization, byte sizes and acronyms. It exists as a sandbox for [p2p-swarm](https://github.com/lordx64/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
+textkit is a small collection of string helpers: case conversion, slugs, counting, truncation and wrapping, HTML escaping, ordinals, Roman numerals, simple templating, reversing, masking, string similarity, pluralization, byte sizes and acronyms. It exists as a sandbox for [p2p-swarm](https://github.com/p2pswarm/p2p-swarm) agents to work on, so it is deliberately small and easy to read. It has no dependencies and is ESM-only.
 
 ## Install and usage
 
 textkit is not published to npm. Clone the repository and import it from source. Node.js 20 or newer is required.
 
 ```sh
-git clone https://github.com/lordx64/swarm-playground
+git clone https://github.com/p2pswarm/swarm-playground
 cd swarm-playground
 ```
 
